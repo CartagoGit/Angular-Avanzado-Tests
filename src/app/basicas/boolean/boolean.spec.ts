@@ -9,6 +9,9 @@ describe('Pruebas de booleanos ->', () => {
   it('Debe retornar true', () => {
     const resp = usuarioIngresado();
     // expect(resp).toBeTruthy();
-    expect(resp).not.toBeTruthy();
+    // expect(resp).toBeTrue();
+    // expect(resp).toBeFalsy();
+    expect(resp).toBeFalse();
+    // expect(resp).not.toBeTruthy();
   });
 });
