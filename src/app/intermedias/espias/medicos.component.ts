@@ -13,7 +13,7 @@ import { MedicosService } from './medicos.service';
 export class MedicosComponent implements OnInit {
 
   public medicos: any[] = [];
-  public mensajeError: string;
+  public mensajeError: string = '';
 
   constructor( public _medicoService: MedicosService ) { }
 
