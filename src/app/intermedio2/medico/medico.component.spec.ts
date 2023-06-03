@@ -13,4 +13,15 @@ fdescribe('MedicoComponent 2 ->', () => {
     fixture = TestBed.createComponent(MedicoComponent);
     component = fixture.componentInstance;
   });
+
+  it('Debe de crearse el componente', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('Debe de retornar el nombre del médico', () => {
+    const nombre = 'Juan Carlos';
+    const respuesta = component.saludarMedico(nombre);
+
+    expect(respuesta).toContain(nombre);
+  });
 });
