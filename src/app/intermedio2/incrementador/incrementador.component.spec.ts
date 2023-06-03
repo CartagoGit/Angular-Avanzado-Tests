@@ -3,7 +3,7 @@ import { IncrementadorComponent } from './incrementador.component';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-describe('Incremendator Component ->', () => {
+fdescribe('Incremendator Component ->', () => {
   let component: IncrementadorComponent;
   let fixture: ComponentFixture<IncrementadorComponent>;
 
@@ -16,6 +16,7 @@ describe('Incremendator Component ->', () => {
 
     fixture = TestBed.createComponent(IncrementadorComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('Debe mostrar la leyenda', () => {
@@ -33,11 +34,33 @@ describe('Incremendator Component ->', () => {
     component.cambiarValor(5);
     fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
+    return fixture.whenStable().then(() => {
       const input = fixture.debugElement.query(By.css('input'));
       const element: HTMLInputElement = input.nativeElement;
 
       expect(element.value).toBe('55');
     });
+  });
+
+  it('Debe incrementar/decrementar en 5, con un click en el botón', () => {
+    const botones = fixture.debugElement.queryAll(By.css('.btn-primary'));
+    // const botonIncrementar =
+    //   fixture.debugElement.nativeElement.querySelector('#btnIncrementar');
+
+    // const botonDecrementar = fixture.debugElement.query(
+    //   By.css('#btnDecrementar')
+    // );
+
+    // console.log(botonIncrementar, botonDecrementar);
+
+    botones[0].triggerEventHandler('click', null);
+    // botonDecrementar.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.progreso).toBe(45);
+
+    botones[1].triggerEventHandler('click', null);
+    // botonIncrementar.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.progreso).toBe(50);
   });
 });
