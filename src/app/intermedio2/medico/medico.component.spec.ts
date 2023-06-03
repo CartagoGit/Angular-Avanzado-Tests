@@ -1,5 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { MedicoComponent } from './medico.component';
+import { MedicoService } from './medico.service';
+import { HttpClientModule } from '@angular/common/http';
 
 fdescribe('MedicoComponent 2 ->', () => {
   let component: MedicoComponent;
@@ -8,6 +10,8 @@ fdescribe('MedicoComponent 2 ->', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MedicoComponent],
+      providers: [MedicoService],
+      imports:[ HttpClientModule]
     });
 
     fixture = TestBed.createComponent(MedicoComponent);
