@@ -18,6 +18,10 @@ export class MedicosComponent implements OnInit {
       .subscribe((medicos) => (this.medicos = medicos));
   }
 
+  public llamadaQuellama() : void {
+    this.agregarMedico();
+  }
+
   public agregarMedico():void {
     const medico = { nombre: 'Médico Juan Carlos' };
 
