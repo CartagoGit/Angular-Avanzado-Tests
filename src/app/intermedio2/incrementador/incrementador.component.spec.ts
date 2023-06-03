@@ -34,16 +34,17 @@ fdescribe('Incremendator Component ->', () => {
     component.cambiarValor(5);
     fixture.detectChanges();
 
-    return fixture.whenStable().then(() => {
-      const input = fixture.debugElement.query(By.css('input'));
-      const element: HTMLInputElement = input.nativeElement;
+    const input = fixture.debugElement.query(By.css('input'));
+    const element: HTMLInputElement = input.nativeElement;
 
+    return fixture.whenStable().then(() => {
       expect(element.value).toBe('55');
     });
   });
 
   it('Debe incrementar/decrementar en 5, con un click en el botón', () => {
     const botones = fixture.debugElement.queryAll(By.css('.btn-primary'));
+    //* No se puede hacer con la referencia local del template
     // const botonIncrementar =
     //   fixture.debugElement.nativeElement.querySelector('#btnIncrementar');
 
@@ -62,5 +63,15 @@ fdescribe('Incremendator Component ->', () => {
     // botonIncrementar.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.progreso).toBe(50);
+  });
+
+  it('En el título del componente, debe mostrar el progreso', () => {
+    const botones = fixture.debugElement.queryAll(By.css('.btn-primary'));
+    botones[0].triggerEventHandler('click', null);
+    fixture.detectChanges();
+    const element: HTMLElement = fixture.debugElement.query(
+      By.css('h3')
+    ).nativeElement;
+    expect(element.innerHTML).toContain('45');
   });
 });
