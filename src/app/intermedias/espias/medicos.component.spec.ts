@@ -1,6 +1,6 @@
 import { MedicosComponent } from './medicos.component';
 import { MedicosService } from './medicos.service';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of , EMPTY, empty} from 'rxjs';
 
 describe('MedicosComponent ->', () => {
   let componente: MedicosComponent;
@@ -24,7 +24,9 @@ describe('MedicosComponent ->', () => {
   it('Debe de llamar al servidor para agregar un médico', () => {
     const espia = spyOn(servicio, 'agregarMedico').and.callFake((medico) => {
       // return from([medico])
-      return of(null)
+      // return of(null)
+      // return empty()
+      return EMPTY;
     });
 
     // componente.agregarMedico();
