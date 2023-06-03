@@ -2,7 +2,7 @@ import { MedicosComponent } from './medicos.component';
 import { MedicosService } from './medicos.service';
 import { from, Observable, of , EMPTY, empty} from 'rxjs';
 
-describe('MedicosComponent ->', () => {
+fdescribe('MedicosComponent ->', () => {
   let componente: MedicosComponent;
   const servicio = new MedicosService(null as any);
 
@@ -34,5 +34,15 @@ describe('MedicosComponent ->', () => {
     componente.llamadaQuellama();
 
     expect(espia).toHaveBeenCalled();
+  });
+
+  it('Debe de agregar un nuevo médico al arreglo de médicos', () => {
+    const medico = { id: 1, nombre: 'Juan Carlos' };
+    spyOn(servicio, 'agregarMedico').and.returnValue(from([medico]));
+
+    componente.agregarMedico();
+
+    // expect(componente.medicos.length).toBe(1);
+    expect(componente.medicos.indexOf(medico)).toBeGreaterThanOrEqual(0);
   });
 });
