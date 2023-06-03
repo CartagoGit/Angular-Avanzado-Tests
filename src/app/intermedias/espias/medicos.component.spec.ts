@@ -2,7 +2,7 @@ import { MedicosComponent } from './medicos.component';
 import { MedicosService } from './medicos.service';
 import { from, Observable, of, EMPTY, empty, throwError } from 'rxjs';
 
-fdescribe('MedicosComponent ->', () => {
+describe('MedicosComponent ->', () => {
   let componente: MedicosComponent;
   const servicio = new MedicosService(null as any);
 
