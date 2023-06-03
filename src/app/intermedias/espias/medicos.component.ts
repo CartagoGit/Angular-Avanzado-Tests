@@ -18,20 +18,22 @@ export class MedicosComponent implements OnInit {
       .subscribe((medicos) => (this.medicos = medicos));
   }
 
-  public llamadaQuellama() : void {
+  public llamadaQuellama(): void {
     this.agregarMedico();
   }
 
-  public agregarMedico():void {
+  public agregarMedico(): void {
     const medico = { nombre: 'Médico Juan Carlos' };
 
     this._medicoService.agregarMedico(medico).subscribe({
       next: (medicoDB) => this.medicos.push(medicoDB),
-      error: (err) => (this.mensajeError = err),
+      error: (err) => {
+        this.mensajeError = err;
+      },
     });
   }
 
-  public borrarMedico(id: string):void {
+  public borrarMedico(id: string): void {
     const confirmar = confirm('Estas seguro que desea borrar este médico');
     if (confirmar) this._medicoService.borrarMedico(id);
   }

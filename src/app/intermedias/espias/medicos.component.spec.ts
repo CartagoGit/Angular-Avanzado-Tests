@@ -1,6 +1,6 @@
 import { MedicosComponent } from './medicos.component';
 import { MedicosService } from './medicos.service';
-import { from, Observable, of , EMPTY, empty} from 'rxjs';
+import { from, Observable, of, EMPTY, empty, throwError } from 'rxjs';
 
 fdescribe('MedicosComponent ->', () => {
   let componente: MedicosComponent;
@@ -44,5 +44,14 @@ fdescribe('MedicosComponent ->', () => {
 
     // expect(componente.medicos.length).toBe(1);
     expect(componente.medicos.indexOf(medico)).toBeGreaterThanOrEqual(0);
+  });
+
+  it('Si falla la adicion, la propiedad mensajeError, debe ser igual al error del servicio', () => {
+    const miError = 'No se pudo agregar el médico';
+    spyOn(servicio, 'agregarMedico').and.returnValue(throwError(() => miError));
+
+    componente.agregarMedico();
+
+    expect(componente.mensajeError).toBe(miError);
   });
 });
