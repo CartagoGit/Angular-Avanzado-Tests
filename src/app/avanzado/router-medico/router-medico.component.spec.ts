@@ -15,7 +15,7 @@ class FakeActivatedRoute {
     return this._subject.asObservable();
   }
 
-  push(valor: any) {
+  inserta(valor: any) {
     this._subject.next(valor);
   }
 }
@@ -57,7 +57,7 @@ fdescribe('RouterMedicoComponent', () => {
   });
 
   it('Debe de colocar el id = nuevo', () => {
-    activatedRoute.push({ id: 'nuevo' });
+    activatedRoute.inserta({ id: 'nuevo' });
     expect(component.id).toBe('nuevo');
   });
 });
