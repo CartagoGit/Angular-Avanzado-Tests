@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkWithHref, RouterOutlet } from '@angular/router';
 
 fdescribe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -31,5 +31,18 @@ fdescribe('AppComponent', () => {
     const routerOutlet = compiled.query(By.directive(RouterOutlet));
     expect(routerOutlet).toBeTruthy();
     // expect(routerOutlet).not.toBeNull();
+  });
+
+  it('Debe de tener un link a la página de médicos', () => {
+    const compiled = fixture.debugElement;
+    const elementos = compiled.queryAll(By.directive(RouterLinkWithHref));
+    let existe = false;
+    for (const elem of elementos) {
+      if (elem.attributes['routerLink'] === '/medicos') {
+        existe = true;
+        break;
+      }
+    }
+    expect(existe).toBeTruthy();
   });
 });
