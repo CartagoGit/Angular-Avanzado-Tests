@@ -2,30 +2,45 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterMedicoComponent } from './router-medico.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, Subject, from } from 'rxjs';
 
 class FakeRouter {
   navigate(params: any) {}
 }
 
 class FakeActivatedRoute {
-  params: Observable<any> = EMPTY;
+  // params: Observable<any> = EMPTY;
+  private _subject = new Subject();
+  get params() {
+    return this._subject.asObservable();
+  }
+
+  push(valor: any) {
+    this._subject.next(valor);
+  }
 }
 
 fdescribe('RouterMedicoComponent', () => {
   let component: RouterMedicoComponent;
   let fixture: ComponentFixture<RouterMedicoComponent>;
   let router: Router;
+  let activatedRoute: FakeActivatedRoute;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [RouterMedicoComponent],
       providers: [
         { provide: Router, useClass: FakeRouter },
-        { provide: ActivatedRoute, useClass: FakeActivatedRoute },
+        {
+          provide: ActivatedRoute,
+          useClass: FakeActivatedRoute,
+        },
       ],
     });
     router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(
+      ActivatedRoute as any
+    ) as unknown as FakeActivatedRoute;
     fixture = TestBed.createComponent(RouterMedicoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -39,5 +54,10 @@ fdescribe('RouterMedicoComponent', () => {
     const spy = spyOn(router, 'navigate');
     component.guardarMedico();
     expect(spy).toHaveBeenCalledWith(['medico', '1234']);
+  });
+
+  it('Debe de colocar el id = nuevo', () => {
+    activatedRoute.push({ id: 'nuevo' });
+    expect(component.id).toBe('nuevo');
   });
 });
